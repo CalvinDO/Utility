@@ -20,20 +20,22 @@ namespace Format {
 
         document.querySelector("#widthInput")?.addEventListener("input", onInputWidth);
 
+        displayParagraph.style.width = (<HTMLInputElement>document.querySelector("#widthInput")).value + "px";
+
         var button: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button");
 
 
         button.addEventListener(
             "click",
             function handleClick(event) {
-
+                //(<HTMLAudioElement>document.querySelector("audio")).play();
+                (<HTMLAudioElement>document.querySelector("audio")).play();
                 console.log(concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)))); (<HTMLDivElement>document.querySelector("div")).innerHTML = concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)));
             }
         );
     }
 
     function concatArray(_input: string[]): string {
-        console.log(_input);
         let output: string = "";
 
         _input.forEach(element => { output = output.concat(element + "<br />") });
@@ -48,13 +50,10 @@ namespace Format {
 
 
     function onInputWidth(this: HTMLInputElement, ev: Event) {
-        /*
-        if (textInput.parentNode) {
-            (<HTMLElement>textInput.parentNode).style.width = this.value + "px";
-        }
-        */
+        console.log("input width");
         displayParagraph.style.width = this.value + "px";
     }
+
 
     function extractLinesFromTextNode(_input: HTMLElement) {
 
