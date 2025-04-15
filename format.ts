@@ -20,9 +20,11 @@ namespace Format {
 
         document.querySelector("#widthInput")?.addEventListener("input", onInputWidth);
 
+        (<HTMLButtonElement>document.querySelector("#copy")).onclick = onCopy;
+
         displayParagraph.style.width = (<HTMLInputElement>document.querySelector("#widthInput")).value + "px";
 
-        var button: HTMLButtonElement = <HTMLButtonElement>document.querySelector("button");
+        var button: HTMLButtonElement = <HTMLButtonElement>document.querySelector("#generate");
 
 
         button.addEventListener(
@@ -34,10 +36,15 @@ namespace Format {
                 } catch (error) {
                     console.warn(error);
                 }
-                
-                console.log(concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)))); (<HTMLDivElement>document.querySelector("div")).innerHTML = concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)));
+
+                //console.log(concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild))));
+                (<HTMLDivElement>document.querySelector("#output")).innerHTML = concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)));
             }
         );
+    }
+
+    function onCopy() {
+        navigator.clipboard.writeText((<HTMLDivElement>document.querySelector("#output")).innerText);
     }
 
     function concatArray(_input: string[]): string {
