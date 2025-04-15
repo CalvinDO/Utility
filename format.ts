@@ -8,7 +8,7 @@ namespace Format {
 
     function init(_event: Event): void {
 
-        displayParagraph = <HTMLParagraphElement>document.querySelector("p");
+        displayParagraph = <HTMLParagraphElement>document.querySelector("#display");
 
         textInput = <HTMLInputElement>document.querySelector("#textInput");
 
@@ -23,6 +23,19 @@ namespace Format {
         (<HTMLButtonElement>document.querySelector("#copy")).onclick = onCopy;
 
         displayParagraph.style.width = (<HTMLInputElement>document.querySelector("#widthInput")).value + "px";
+
+        const observer = new MutationObserver((element) => {
+            let hasContent: boolean = element[0]?.target.textContent != "";
+
+            (<HTMLButtonElement>document.querySelector("#copy")).toggleAttribute("disabled", !hasContent);
+            (<HTMLButtonElement>document.querySelector("#generate")).toggleAttribute("disabled", !hasContent);
+        });
+
+        // call `observe()`, passing it the element to observe, and the options object
+        observer.observe(displayParagraph, {
+            subtree: true,
+            childList: true,
+        });
 
         var button: HTMLButtonElement = <HTMLButtonElement>document.querySelector("#generate");
 
