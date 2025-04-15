@@ -29,7 +29,12 @@ namespace Format {
             "click",
             function handleClick(event) {
                 //(<HTMLAudioElement>document.querySelector("audio")).play();
-                (<HTMLAudioElement>document.querySelector("audio")).play();
+                try {
+                    (<HTMLAudioElement>document.querySelector("audio")).play();
+                } catch (error) {
+                    console.warn(error);
+                }
+                
                 console.log(concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)))); (<HTMLDivElement>document.querySelector("div")).innerHTML = concatArray(<string[]>Array.from(extractLinesFromTextNode(displayParagraph.firstChild)));
             }
         );
